@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            .card {
+                background-color: white;
+                padding: 3px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-family: 'Roboto', sans-serif;
+                font-weight: bold;
+            }
+            h2, h3 {
+                padding: 0px;
+                vertical-align: center;
+                font-family: 'Roboto', sans-serif;
+                font-weight: normal;
+            }
+            table {
+                width:auto;
+                padding:20px;
+                font-family: 'Roboto', sans-serif;
+                border-collapse: collapse;
+                border-color: #f2f2f2;
+                border-width:2px;
+                border-radius: 6px;
+                text-align: center;
+                position: relative;
+            }
+            td {
+                padding: 2px;
+            }
+            label {
+                padding: 4px 16px;
+                display: block;
+            }
+            input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+            input:checked + label {
+                 background-color: #2196F3;
+                color: white;
+            }
+            body {
+                background: #f1f1f1;
+            }
+            
+            .header {
+                margin:10px;
+                max-width: 340px;
+                padding: 5px;
+                background: white;
+                display:block;
+            }
+            
+            tr:nth-child(even){background-color: #fff7e6;}
+            tr:nth-child(odd){background-color:#ffe6b3;}
+            
+            tr:hover {background-color: #ddd;}
+            
+            
+            
+            #result {
+                text-align: center;
+            }
+            div {
+                display: block;
+                position:relative;
+                
+            }
+            #header {
+                display: block;
+                max-width: 340px;
+            }
+            #displayTally {
+                font-family: 'Roboto', sans-serif;
+                font-weight: bold;
+                margin: 0;
+                height: 30px;
+                line-height: 30px;
+                color:darkred;
+                background-color: lightcoral;
+            }
+            .clear{
+                float:right;
+                border-radius:0.12em;
+                margin-right: 10px;
+                margin-bottom: 10px;
+                padding:0.46em 1.6em;
+                font-family:'Roboto',sans-serif;
+                font-weight:bold;
+                background-color:white;
+                opacity: 100%;
+                height: auto;
+                width: auto;
+                position: relative;
+                
+                
+            }
+            .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+            .clear:hover{
+                text-shadow: 0 0 2em rgba(255,255,255,1);
+                color:#FFFFFF;
+                border-color:#FFFFFF;
+            }
+            #displayTally.active {
+                background-color:lightgreen;
+                color:#003d10;
+            }
+            label.active {
+                background-color: #2196F3;
+                color: black;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            p{
+                font-family: 'Roboto', sans-serif;
+                font-weight: normal;
+                padding:9px;
+                padding-bottom: 0;
+                margin:0;
+                
+            }
+            #icon{
+            }
+            
+            #calculator {
+                max-width: 340px;
+            }
+        </style>
+        <script>
+            var tally = 0;
+            function runTally(lab) {
+                
+                if (document.getElementById("fever").checked) {
+                    tally += 2;
+                }
+                
+                if (document.getElementById("hemo").checked ||                             document.getElementById("thrombo").checked) {
+                    tally += 4;
+                }
+                else if (document.getElementById("leuko").checked) {
+                    tally += 3;
+                }
+                
+                if (document.getElementById("seize").checked) {
+                    tally += 5;
+                }
+                else if (document.getElementById("psych").checked) {
+                    tally += 3;
+                }
+                else if (document.getElementById("delirium").checked) {
+                    tally += 2;
+                }
+                
+                if (document.getElementById("acl").checked) {
+                    tally += 6;
+                }
+                else if (document.getElementById("scdl").checked) {
+                    tally += 4;
+                }
+                else if (document.getElementById("alopecia").checked || document.getElementById("ulcer").checked) {
+                    tally += 2;
+                }
+                
+                if (document.getElementById("joint").checked) {
+                    tally += 6;
+                }
+                
+                if (document.getElementById("class3").checked) {
+                    tally += 10;
+                }
+                else if (document.getElementById("class2").checked) {
+                    tally += 8;
+                }
+                else if (document.getElementById("pro").checked) {
+                    tally += 4;
+                }
+                
+                if (document.getElementById("ap").checked) {
+                    tally += 6;
+                }
+                else if (document.getElementById("effusion").checked) {
+                    tally += 5;
+                }
+                
+                if (document.getElementById("lowc4").checked) {
+                    tally += 4;
+                }
+                else if (document.getElementById("lowc3").checked) {
+                    tally += 3;
+                }
+               
+                if (document.getElementById("smith").checked) {
+                    tally += 6;
+                }
+                
+                if (document.getElementById("paa").checked) {
+                    tally += 2;
+                }
+                
+                if (tally > 9) {
+                    document.getElementById("displayTally").innerHTML = "SLE Criteria Met";
+                    document.getElementById("displayTally").classList.toggle("active", true);
+                }
+                else {
+                    document.getElementById("displayTally").innerHTML = "SLE Criteria Not Met";
+                    document.getElementById("displayTally").classList.toggle("active", false);
+                }
+                
+                tally = 0;
+            }
+            
+            function turnOff () {
+                document.getElementById("displayTally").innerHTML = "SLE Criteria Not Met";
+                    document.getElementById("displayTally").classList.toggle("active", false);
+            }
+        </script>
+    </head>
+<body>
+    <div id="header" class="card">
+<img id=icon src="icon-lc.svg">
+
+
+</div>
+   
+    <div id="calculator" class="card clearfix">
+        <p>Select all that apply:</p>
+<form>
+    
+    <table class="card">
+        
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="fever"><label for="fever">Fever</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="leuko"><label for="leuko">Leukopenia</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="thrombo"><label for="thrombo">Thrombocytopenia</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="hemo"><label for="hemo">Autoimmune Hemolysis</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="delirium"><label for="delirium">Delirium</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="psych"><label for="psych">Psychosis</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="seize"><label for="seize">Seizure</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="alopecia"><label for="alopecia">Non-scarring Alopecia</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="ulcer"><label for="ulcer">Oral Ulcers</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="scdl"><label for="scdl">Subacute Cutaneous or Discoid Lupus</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="acl"><label for="acl">Acute Cutaneous Lupus</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="joint"><label for="joint">Joint Involvement</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="pro"><label for="pro">Proteinuria > 0.5 g/24 hours</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="class2"><label for="class2">Class II or V Lupus Nephritis</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="class3"><label for="class3">Class III or IV Lupus Nephritis</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="effusion"><label for="effusion">Pleural or Pericardial Effusion</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="ap"><label for="ap">Acute Pericarditis</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="lowc3"><label for="lowc3">Low C3 Complement</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="lowc4"><label for="lowc4">Low C4 Complement</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="smith"><label for="smith">Anti-dsDNA OR Anti-Smith Antibodies</label></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" onclick="runTally(this)" id="paa"><label for="paa">Positive Antiphospholipid Antibodies</label></td>
+        </tr>
+        
+        <tr>
+            
+                <td id="displayTally">SLE Criteria Not Met</td>
+            
+        </tr>
+        
+    </table>
+    <input type="button" value="Clear All" class="clear" id="clear" onclick="this.form.reset();turnOff();">
+</form>
+</div>
+
+</body>
+</html>
